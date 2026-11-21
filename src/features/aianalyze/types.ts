@@ -109,4 +109,15 @@ export type Specs = {
   ramTotalGb: number;
   gpus: { name: string; vramGb: number; driverVersion: string }[];
 };
-export type Message = { role: "user" | "assistant"; content: string };
+export type Message = { role: "user" | "assistant"; content: string; completed?: boolean };
+export type Account = {
+  signInConfigured: boolean;
+  signedIn: boolean;
+  email: string | null;
+  name: string | null;
+  assistant: "Account" | "ApiKey" | "Off";
+  quota: { questionsToday: number; dailyLimit: number } | null;
+};
+export type ChatStatus = { configured: boolean; mode?: "Off" | "Account" | "ApiKey"; signInAvailable?: boolean };
+export type Privacy = { consent: boolean | null; serverConfigured: boolean; preview: { deviceId: string; snapshot: unknown; feedback: unknown[] } };
+export type FeedbackVote = { target: "health" | "finding" | "answer"; kind: string; helpful: boolean };

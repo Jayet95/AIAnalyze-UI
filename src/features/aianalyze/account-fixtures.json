@@ -1,0 +1,5 @@
+{
+  "/api/account": { "signInConfigured": true, "signedIn": true, "email": "player@example.com", "name": "Player One", "assistant": "Account", "quota": { "questionsToday": 4, "dailyLimit": 30 } },
+  "/api/privacy": { "consent": null, "serverConfigured": false, "preview": { "deviceId": "sample-device", "snapshot": {}, "feedback": [] } },
+  "/api/chat/status": { "configured": true, "mode": "Account", "signInAvailable": true }
+}

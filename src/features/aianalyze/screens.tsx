@@ -298,6 +298,7 @@ export function SessionsScreen({
           {detail.findings.map((f, i) => (
             <CheckCard
               key={i}
+              feedbackTarget="finding"
               check={{
                 id: f.kind,
                 title: findingTitles[f.kind] || f.kind,

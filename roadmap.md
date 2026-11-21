@@ -1,5 +1,12 @@
 # AIAnalyze
 
+- [ ] Connect delivery to Jayet95/AIAnalyze-UI (blocked: Lovable Git sync cannot attach an existing repository; user must configure Git in project Settings or transfer the exported source).
+
+- [x] Add the local-service account menu and assistant sign-in states.
+- [x] Add privacy Settings, consent banner and exact sharing preview.
+- [x] Add Health, finding and completed-answer feedback votes; verify service contracts and desktop/mobile flows with intercepted service responses.
+- [ ] Verify real account-provider sign-in and diagnostics uploads on Windows (requires the running Windows service and its configured providers).
+
 - [x] Connect /api/memory, show reported RAM sticks and unnamed empty slots in System/motherboard, and include the Memory setup health check.
 
 - [x] Give motherboard components measured active/idle/unknown effects without inventing activity for unsupported sensors.

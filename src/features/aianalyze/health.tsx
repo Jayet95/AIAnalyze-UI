@@ -22,6 +22,7 @@ import type { Check as PCCheck, Cooling, Health, MemorySetup, Report, Severity }
 import { withMemoryCheck } from "./memory-rules";
 import { CoolingPanel } from "./cooling";
 import { relativeTime } from "./rules";
+import { FeedbackButtons } from "./service-preferences";
 export function SeverityBadge({ severity }: { severity: Severity }) {
   return (
     <span className={`severity-badge ${severity === null ? "ok" : severity.toLowerCase()}`}>
@@ -36,7 +37,7 @@ export function SeverityBadge({ severity }: { severity: Severity }) {
     </span>
   );
 }
-export function CheckCard({ check, ask }: { check: PCCheck; ask: (question: string) => void }) {
+export function CheckCard({ check, ask, feedbackTarget = "health" }: { check: PCCheck; ask: (question: string) => void; feedbackTarget?: "health" | "finding" }) {
   const Icon = check.id === "memory-config" ? MemoryStick : check.id.startsWith("disk")
     ? HardDrive
     : check.id === "display-driver"
@@ -71,6 +72,7 @@ export function CheckCard({ check, ask }: { check: PCCheck; ask: (question: stri
           Ask about this
           <ArrowUpRight size={14} />
         </Button>
+        {(check.severity !== null || feedbackTarget === "finding") && <FeedbackButtons target={feedbackTarget} kind={check.id} />}
       </div>
     </article>
   );

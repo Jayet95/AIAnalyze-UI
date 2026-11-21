@@ -2902,3 +2902,33 @@
 .board-detail-popover .component-inspector { padding: 0; border: 0; }
 .motherboard-layout.hover-inspection { grid-template-columns: minmax(0, 1fr); }
 .hover-inspection .motherboard-canvas { max-width: 760px; width: 100%; justify-self: center; }
+.account-control { max-width: 150px; min-width: 0; }
+.account-control > span { overflow: hidden; text-overflow: ellipsis; }
+.account-menu { max-width: calc(100vw - 32px); }
+.account-menu > p { color: var(--muted-foreground); font-size: 12px; overflow-wrap: anywhere; margin: 8px 0; }
+.account-menu > button { width: 100%; justify-content: flex-start; }
+.account-quota { border-block: 1px solid var(--border); padding: 14px 0; margin: 12px 0; font-size: 11px; }
+.account-quota progress { appearance: none; width: 100%; height: 4px; display: block; margin-top: 9px; background: var(--muted); }
+.account-quota progress::-webkit-progress-bar { background: var(--muted); }
+.account-quota progress::-webkit-progress-value { background: var(--primary); }
+.account-quota progress::-moz-progress-bar { background: var(--primary); }
+.privacy-banner { display: flex; align-items: flex-start; gap: 14px; padding: 18px 0; margin-bottom: 22px; border-block: 1px solid var(--border); }
+.privacy-banner > svg { flex-shrink: 0; color: var(--primary); margin-top: 3px; }
+.privacy-banner h2 { font-family: var(--font-instrument); font-size: 22px; margin-bottom: 6px; }
+.privacy-banner p { max-width: 780px; font-size: 12px; line-height: 1.7; color: var(--muted-foreground); }
+.privacy-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.privacy-settings { width: calc(100vw - 32px); max-height: calc(100dvh - 48px); overflow-y: auto; border-radius: 6px; }
+.privacy-settings > p { font-size: 12px; line-height: 1.8; color: var(--muted-foreground); }
+.privacy-switch-row { display: flex; align-items: center; gap: 18px; padding: 16px 0; border-block: 1px solid var(--border); }
+.privacy-switch-row label { flex: 1; font-size: 13px; line-height: 1.6; }
+.privacy-switch-row [role=switch] { flex-shrink: 0; }
+.privacy-local-note { display: flex; gap: 8px; align-items: center; }
+.privacy-settings summary { cursor: pointer; font-size: 12px; color: var(--primary); }
+.privacy-settings pre { max-height: 260px; overflow: auto; padding: 14px; background: var(--secondary); border: 1px solid var(--border); font-size: 11px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.feedback-vote { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 10px; color: var(--muted-foreground); margin-top: 8px; }
+.feedback-vote button { width: 30px; height: 30px; }
+.feedback-vote [role=alert] { flex-basis: 100%; color: var(--warning); }
+.setup-message > button, .setup-message > a { margin-top: 14px; }
+.setup-message p + p { margin-top: 14px; }
+@media (max-width: 1100px) { .desktop-console .console-title { display: none; } }
+@media (max-width: 600px) { .account-control { max-width: 90px; font-size: 11px; padding-inline: 6px; } .account-control > svg { width: 14px; } .topbar-actions { gap: 3px; } .privacy-banner { gap: 9px; } .privacy-banner h2 { font-size: 20px; } .privacy-settings { padding: 20px; } }

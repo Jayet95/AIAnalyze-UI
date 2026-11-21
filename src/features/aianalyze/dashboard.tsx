@@ -25,6 +25,7 @@ import { LiveScreen, SessionsScreen, SystemScreen } from "./screens";
 import { captureLabel, relativeTime } from "./rules";
 import { usePC } from "./use-pc";
 import type { Alert } from "./types";
+import { AccountControl, LocalServiceProvider, PrivacyBanner, PrivacySettings, useServicePreferences } from "./service-preferences";
 const tabs = [
   { id: "health", label: "Health", Icon: HeartPulse, href: "#/" },
   { id: "live", label: "Live", Icon: Activity, href: "#/live" },
@@ -46,6 +47,7 @@ export function Dashboard() {
   const [bellOpen, setBellOpen] = useState(false);
   const [rgbEnabled, setRgbEnabled] = useState(true);
   const pc = usePC(location.view, location.id);
+  const prefs = useServicePreferences(pc.api, pc.ready);
   const toastTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
   useEffect(() => () => toastTimers.current.forEach(clearTimeout), []);
   useEffect(() => {
@@ -88,7 +90,7 @@ export function Dashboard() {
         ? "neutral"
         : "warning";
   return (
-    <div className={`app-shell desktop-console ${rgbEnabled ? "rgb-enabled" : "rgb-disabled"}`}>
+    <LocalServiceProvider api={pc.api}><div className={`app-shell desktop-console ${rgbEnabled ? "rgb-enabled" : "rgb-disabled"}`}>
       <header className="topbar">
         <div className="topbar-inner">
           <a className="brand" href="#/" aria-label="AIAnalyze health home">
@@ -158,6 +160,7 @@ export function Dashboard() {
                 )}
               </PopoverContent>
             </Popover>
+            <AccountControl prefs={prefs} mock={pc.mock} />
             <Button className="ask-ai-button" onClick={() => ask()}>
               <Sparkles size={17} />
               <span>Ask AI</span>
@@ -225,7 +228,7 @@ export function Dashboard() {
               </div>
             )}
             {location.view === "health" && (
-              <HealthScreen
+              <><PrivacyBanner prefs={prefs} /><HealthScreen
                 health={pc.health}
                 checking={pc.checking}
                 checkNow={() => void pc.checkNow()}
@@ -235,7 +238,7 @@ export function Dashboard() {
                 coolingError={pc.coolingError}
                 gpuNames={pc.specs?.gpus.map(gpu => gpu.name) ?? []}
                 memory={pc.memory}
-              />
+              /></>
             )}{" "}
             {location.view === "live" && <LiveScreen live={pc.live} status={pc.status} specs={pc.specs} cooling={pc.cooling} coolingError={pc.coolingError} />}{" "}
             {location.view === "sessions" && pc.pageError && location.id !== null ? (
@@ -276,8 +279,11 @@ export function Dashboard() {
         context={chatContext}
         api={pc.api}
         mock={pc.mock}
+        refreshAccount={prefs.refreshAccount}
       />
+      <PrivacySettings prefs={prefs} />
       <div className="toast-stack" aria-live="polite">
+        {prefs.notice && <article className="alert-toast info"><div className="toast-heading"><UserNotice text={prefs.notice} /><Button variant="ghost" size="icon" aria-label="Dismiss account notification" onClick={() => prefs.setNotice("")}><X size={15} /></Button></div></article>}
         {toasts.map((a) => (
           <article key={a.id} className={`alert-toast ${a.severity?.toLowerCase() || "info"}`}>
             <div className="toast-heading">
@@ -301,6 +307,7 @@ export function Dashboard() {
           </article>
         ))}
       </div>
-    </div>
+    </div></LocalServiceProvider>
   );
 }
+function UserNotice({ text }: { text: string }) { return <p>{text}</p>; }

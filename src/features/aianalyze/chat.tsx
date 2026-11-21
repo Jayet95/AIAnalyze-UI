@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/sheet";
 import { Markdown } from "./markdown";
 import type { LocalApi } from "./api";
-import type { Message } from "./types";
+import type { ChatStatus, Message } from "./types";
+import { FeedbackButtons, SignInLink } from "./service-preferences";
 export type ChatContext = { sessionId: number | null; question: string };
 const suggestions = [
   "Is anything wrong with my PC right now?",
@@ -25,16 +26,19 @@ export function ChatDrawer({
   context,
   api,
   mock,
+  refreshAccount,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   context: ChatContext;
   api: LocalApi;
   mock: boolean;
+  refreshAccount: () => void;
 }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [draft, setDraft] = useState("");
   const [configured, setConfigured] = useState<boolean | null>(null);
+  const [signInAvailable, setSignInAvailable] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState("");
   const controller = useRef<AbortController | null>(null);
@@ -77,9 +81,9 @@ export function ChatDrawer({
     setDraft(context.question);
     setError("");
     api
-      .get<{ configured: boolean }>("/api/chat/status")
+      .get<ChatStatus>("/api/chat/status")
       .then((s) => {
-        if (!stopped) setConfigured(s.configured);
+        if (!stopped) { setConfigured(s.configured); setSignInAvailable(s.signInAvailable === true); }
       })
       .catch((e) => {
         if (!stopped) setError(e instanceof Error ? e.message : "Assistant unavailable");
@@ -114,6 +118,10 @@ export function ChatDrawer({
             old.map((m, i) => (i === old.length - 1 ? { ...m, content: m.content + text } : m)),
           );
       });
+      if (!abort.signal.aborted && controller.current === abort) {
+        setMessages(old => old.map((message, index) => index === old.length - 1 ? { ...message, completed: true } : message));
+        refreshAccount();
+      }
     } catch (e) {
       if (!abort.signal.aborted)
         setError(e instanceof Error ? e.message : "The answer was interrupted.");
@@ -162,12 +170,12 @@ export function ChatDrawer({
           {configured === false ? (
             <div className="setup-message">
               <Sparkles />
-              <h3>Your assistant is almost ready</h3>
-              <p>
+              <h3>{signInAvailable ? "Sign in to use the assistant" : "Your assistant is almost ready"}</h3>
+              {signInAvailable ? <><p>It's free during the beta.</p><SignInLink mock={mock} /><p>Advanced: use your own Anthropic API key with the installer's <code>-SetApiKey</code> option.</p></> : <p>
                 The assistant needs your own Anthropic API key. Rerun the installer as Administrator
                 with <code>-SetApiKey</code> and paste your key when asked. The key stays on this PC
                 in a file only Windows administrators can read.
-              </p>
+              </p>}
             </div>
           ) : messages.length === 0 ? (
             <div className="chat-empty">
@@ -196,6 +204,7 @@ export function ChatDrawer({
                 <span className="message-author">{m.role === "user" ? "You" : "AIAnalyze"}</span>
                 <Markdown text={m.content} />
                 {streaming && i === messages.length - 1 && <span className="stream-caret" />}
+                {m.role === "assistant" && m.completed === true && <FeedbackButtons target="answer" kind="chat" />}
               </div>
             ))
           )}

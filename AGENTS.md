@@ -43,3 +43,5 @@ use the editor.
 - Read cooling solely from /api/cooling every five seconds while relevant views are visible; PC-wide cooling detection must never be assigned to the GPU cooling topology.
 - Read memory from /api/memory while Health/System is visible and after health reports change; share reported modules with the slot map and inspector, never infer unnamed slot labels, physical order, activity, or XMP speeds.
 - Use shared hover/focus/tap detail reveals for hardware inspection so dense component facts stay off the resting System view.
+- Delegate accounts, consent and feedback to the same-origin PC service; /auth/sign-in is a full document navigation, not a TanStack route or hosted authentication flow.
+- Keep feedback completion metadata client-side and strip it from chat request messages; offer answer votes only after a successful completed stream.

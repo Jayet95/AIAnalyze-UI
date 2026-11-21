@@ -1,11 +1,14 @@
 import sampleData from "./ui-fixtures.json";
 import coolingSamples from "./cooling-fixtures.json";
 import memorySamples from "./memory-fixtures.json";
-import type { Cooling, Health, MemorySetup, Message, Status } from "./types";
+import accountSamples from "./account-fixtures.json";
+import type { Account, Cooling, FeedbackVote, Health, MemorySetup, Message, Privacy, Status } from "./types";
 import { parseSseEvent, validChat } from "./rules";
-export const fixtures = { ...sampleData, "/api/cooling": coolingSamples["/api/cooling"], "/api/memory": memorySamples["/api/memory"] };
+export const fixtures = { ...sampleData, ...accountSamples, "/api/cooling": coolingSamples["/api/cooling"], "/api/memory": memorySamples["/api/memory"] };
 export class LocalApi {
   mock = false;
+  private mockAccount: Account = structuredClone(accountSamples["/api/account"]) as Account;
+  private mockPrivacy: Privacy = structuredClone(accountSamples["/api/privacy"]);
   async initialize(forceMock: boolean) {
     this.mock = forceMock;
     if (!forceMock) {
@@ -20,6 +23,9 @@ export class LocalApi {
   async get<T>(path: string): Promise<T> {
     if (this.mock) {
       const p = path.split("?")[0] || path;
+      if (p === "/api/account") return structuredClone(this.mockAccount) as T;
+      if (p === "/api/privacy") return structuredClone(this.mockPrivacy) as T;
+      if (p === "/api/chat/status") return { configured: this.mockAccount.assistant !== "Off", mode: this.mockAccount.assistant, signInAvailable: this.mockAccount.signInConfigured } as T;
       const records: Record<string, unknown> = fixtures;
       const data =
         p === "/api/alerts"
@@ -42,6 +48,26 @@ export class LocalApi {
           : "AIAnalyze service isn't running. Start it from Services, or reinstall.",
       );
     return response.json() as Promise<T>;
+  }
+  private async post(path: string, body: unknown) {
+    const response = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: AbortSignal.timeout(8000) });
+    if (!response.ok) {
+      const data = await response.json().catch(() => null) as { error?: string } | null;
+      throw new Error(data?.error || "Your change could not be saved. Please try again.");
+    }
+    return response;
+  }
+  async signOut() {
+    if (this.mock) { this.mockAccount = { ...this.mockAccount, signedIn: false, name: null, email: null, assistant: "Off", quota: null }; return; }
+    await this.post("/api/account/sign-out", {});
+  }
+  async savePrivacy(share: boolean) {
+    if (this.mock) { this.mockPrivacy.consent = share; return; }
+    await this.post("/api/privacy", { share });
+  }
+  async feedback(vote: FeedbackVote) {
+    if (this.mock) { this.mockPrivacy.preview.feedback.push(structuredClone(vote)); return; }
+    await this.post("/api/feedback", vote);
   }
   async check() {
     if (this.mock) {
@@ -95,7 +121,7 @@ export class LocalApi {
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages, sessionId }),
+      body: JSON.stringify({ messages: messages.map(({ role, content }) => ({ role, content })), sessionId }),
       signal,
     });
     if (!response.ok) {

@@ -23,3 +23,9 @@ GPU fans are matched by adapter name; each rotates only when its own RPM is posi
 ## Memory service
 
 `GET /api/memory` is read on Health/System entry, every 30 seconds while visible, and when the health report timestamp changes. HTTP 503 means waiting for the first health check. The exact supplied desktop sample is bundled in `memory-fixtures.json`. Installed sticks retain service slot, bank and channel labels; remaining slots are unnamed and empty. The schematic groups installed sticks in reported order, not an inferred motherboard layout. Configured MT/s is the main speed; a higher reported speed is secondary. Null values stay unknown, with no inferred XMP speed or RAM activity. The service's check is shown under the slot map; Health uses its existing check if supplied, otherwise includes the memory endpoint's check once. Ask about this uses the existing local assistant.
+
+## Accounts, privacy and feedback
+
+All account state comes from `GET /api/account`; no additional profiles, identity provider or hosted backend is created. Sign-in navigates the entire browser to the service's `/auth/sign-in`; `#signed-in` reads the account, shows confirmation and removes the callback hash. Mock sign-in is disabled rather than inventing an authentication flow. Sign-out posts JSON to `/api/account/sign-out` and reads the account again.
+
+Privacy Settings reads `GET /api/privacy`, shows the service's exact preview JSON, and saves only `{ "share": true|false }`. A null consent value shows the Health banner until a choice successfully saves. Feedback posts only `{ target, kind, helpful }` to `/api/feedback`; the service owns storage and uploads. Answer votes appear only on completed streams, not interrupted answers. Sample preference changes stay within the mock LocalApi instance. `account-fixtures.json` preserves the supplied account example; its privacy preview is an empty, explicitly sample preview, not a fabricated hardware snapshot.
