@@ -1,0 +1,400 @@
+{
+  "_comment": "Made-up sample responses with the exact shapes of the AIAnalyze API. Keys are API paths.",
+  "/api/status": {
+    "nowUtc": "2026-11-21T14:00:00+00:00",
+    "lastSampleUtc": "2026-11-21T13:59:59+00:00",
+    "capture": {
+      "state": "Running",
+      "message": "Capturing frames.",
+      "userSession": true,
+      "lastFrameUtc": "2026-11-21T13:59:58+00:00",
+      "currentApplication": "Cyberpunk2077.exe",
+      "lastSessionUtc": "2026-11-21T12:40:10+00:00"
+    },
+    "database": { "path": "C:\\ProgramData\\AIAnalyze\\telemetry.db", "sizeBytes": 152043520 }
+  },
+  "/api/health": {
+    "running": false,
+    "report": {
+      "atUtc": "2026-11-21T13:55:00+00:00",
+      "uptime": "16.04:12:00",
+      "worst": "Critical",
+      "checks": [
+        {
+          "id": "disk-health",
+          "title": "Drive health",
+          "severity": "Critical",
+          "summary": "Windows reports ST2000DM008 as unhealthy. Back up your files now and plan to replace the drive.",
+          "evidence": [
+            "Samsung SSD 980 PRO 1TB (SSD): Healthy, OK",
+            "ST2000DM008 (HDD): Unhealthy, Predictive failure"
+          ]
+        },
+        {
+          "id": "display-driver",
+          "title": "Graphics driver",
+          "severity": "Warning",
+          "summary": "The graphics driver stopped responding and was restarted twice in the last 7 days (screen goes black or a game crashes). Try a clean install of the latest driver from the GPU maker, or go back to the previous one if this began after an update; also check GPU temperatures and any GPU overclock.",
+          "evidence": [
+            "2026-11-20 22:14: Display driver nvlddmkm stopped responding and has successfully recovered.",
+            "2026-11-18 21:03: Display driver nvlddmkm stopped responding and has successfully recovered."
+          ]
+        },
+        {
+          "id": "disk-space",
+          "title": "Disk space",
+          "severity": "Warning",
+          "summary": "C: has less than 10% free. Free some space before it starts to slow Windows and break updates.",
+          "evidence": [
+            "C: Windows: 71 GB free of 931 GB (8%)",
+            "D: Games: 1200 GB free of 1863 GB (64%)"
+          ]
+        },
+        {
+          "id": "uptime",
+          "title": "Restart",
+          "severity": "Info",
+          "summary": "The PC has been running for 16 days without a restart. A restart applies pending updates and clears slowdowns that build up over time.",
+          "evidence": []
+        },
+        {
+          "id": "crashes",
+          "title": "System crashes",
+          "severity": null,
+          "summary": "No blue screens or unexpected shutdowns in the last 7 days.",
+          "evidence": []
+        },
+        {
+          "id": "hardware-errors",
+          "title": "Hardware errors",
+          "severity": null,
+          "summary": "The processor, memory and buses reported no hardware errors in the last 7 days.",
+          "evidence": []
+        },
+        {
+          "id": "app-crashes",
+          "title": "Program crashes",
+          "severity": null,
+          "summary": "A few programs crashed once or twice in the last 7 days, which is normal.",
+          "evidence": ["Discord.exe: 1 crash(es)"]
+        },
+        {
+          "id": "services",
+          "title": "Background services",
+          "severity": null,
+          "summary": "Windows services started and ran normally.",
+          "evidence": []
+        },
+        {
+          "id": "updates",
+          "title": "Windows Update",
+          "severity": null,
+          "summary": "No failed Windows updates in the last 7 days.",
+          "evidence": []
+        },
+        {
+          "id": "memory",
+          "title": "Memory",
+          "severity": null,
+          "summary": "18.2 of 31.9 GB in use (57%).",
+          "evidence": ["chrome: 4210 MB", "Cyberpunk2077: 6890 MB", "Discord: 610 MB"]
+        },
+        {
+          "id": "cpu-hogs",
+          "title": "Programs using the CPU",
+          "severity": null,
+          "summary": "No single program was using a large share of the CPU.",
+          "evidence": ["Cyberpunk2077: 22% CPU", "chrome: 3% CPU"]
+        }
+      ],
+      "memory": { "totalGb": 31.9, "usedGb": 18.2, "usedPercent": 57.05 },
+      "drives": [
+        {
+          "name": "C:",
+          "label": "Windows",
+          "totalBytes": 999653638144,
+          "freeBytes": 76235669504,
+          "freePercent": 7.63
+        },
+        {
+          "name": "D:",
+          "label": "Games",
+          "totalBytes": 2000263577600,
+          "freeBytes": 1288490188800,
+          "freePercent": 64.4
+        }
+      ],
+      "topByCpu": [
+        { "name": "Cyberpunk2077", "processId": 9120, "cpuPercent": 22.4, "memoryMb": 6890 },
+        { "name": "chrome", "processId": 4410, "cpuPercent": 3.1, "memoryMb": 4210 },
+        { "name": "Discord", "processId": 5520, "cpuPercent": 1.2, "memoryMb": 610 }
+      ],
+      "topByMemory": [
+        { "name": "Cyberpunk2077", "processId": 9120, "cpuPercent": 22.4, "memoryMb": 6890 },
+        { "name": "chrome", "processId": 4410, "cpuPercent": 3.1, "memoryMb": 4210 },
+        { "name": "Discord", "processId": 5520, "cpuPercent": 1.2, "memoryMb": 610 }
+      ]
+    }
+  },
+  "/api/live?minutes=5": {
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "points": [
+      {
+        "t": 1795269590,
+        "m": {
+          "CPU °C": 71.5,
+          "CPU %": 34.2,
+          "CPU W": 68,
+          "GPU °C": 72,
+          "GPU %": 98,
+          "GPU MHz": 2745
+        }
+      },
+      {
+        "t": 1795269591,
+        "m": {
+          "CPU °C": 71.9,
+          "CPU %": 36.0,
+          "CPU W": 70,
+          "GPU °C": 72,
+          "GPU %": 99,
+          "GPU MHz": 2745
+        }
+      },
+      {
+        "t": 1795269592,
+        "m": {
+          "CPU °C": 72.4,
+          "CPU %": 33.1,
+          "CPU W": 69,
+          "GPU °C": 73,
+          "GPU %": 98,
+          "GPU MHz": 2730
+        }
+      },
+      {
+        "t": 1795269593,
+        "m": {
+          "CPU °C": 72.0,
+          "CPU %": 35.7,
+          "CPU W": 71,
+          "GPU °C": 73,
+          "GPU %": 99,
+          "GPU MHz": 2730
+        }
+      },
+      {
+        "t": 1795269594,
+        "m": {
+          "CPU °C": null,
+          "CPU %": 34.9,
+          "CPU W": null,
+          "GPU °C": 73,
+          "GPU %": 99,
+          "GPU MHz": 2715
+        }
+      }
+    ]
+  },
+  "/api/sessions": [
+    {
+      "id": 14,
+      "application": "Cyberpunk2077.exe",
+      "startUtc": "2026-11-21T11:52:00+00:00",
+      "endUtc": "2026-11-21T12:40:10+00:00",
+      "durationSeconds": 2890,
+      "frameCount": 251430,
+      "medianFps": 87.0,
+      "worst": "Warning"
+    },
+    {
+      "id": 13,
+      "application": "cs2.exe",
+      "startUtc": "2026-11-20T19:05:00+00:00",
+      "endUtc": "2026-11-20T20:10:30+00:00",
+      "durationSeconds": 3930,
+      "frameCount": 1102000,
+      "medianFps": 281.0,
+      "worst": "Info"
+    },
+    {
+      "id": 12,
+      "application": "Cyberpunk2077.exe",
+      "startUtc": "2026-11-19T20:00:00+00:00",
+      "endUtc": "2026-11-19T21:15:00+00:00",
+      "durationSeconds": 4500,
+      "frameCount": 480000,
+      "medianFps": 104.0,
+      "worst": null
+    }
+  ],
+  "/api/sessions/14": {
+    "session": {
+      "id": 14,
+      "application": "Cyberpunk2077.exe",
+      "startUtc": "2026-11-21T11:52:00+00:00",
+      "endUtc": "2026-11-21T12:40:10+00:00",
+      "frameCount": 251430,
+      "medianFps": 87.0
+    },
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "baseline": {
+      "kind": "FpsDrop",
+      "message": "Cyberpunk2077.exe: median FPS 87 is 21% below your baseline of 110.",
+      "fps": 110.0
+    },
+    "findings": [
+      {
+        "kind": "FpsDrop",
+        "severity": "Warning",
+        "message": "Cyberpunk2077.exe: median FPS 87 is 21% below your baseline of 110."
+      },
+      {
+        "kind": "GpuThrottling",
+        "severity": "Warning",
+        "message": "While the GPU was fully loaded, its clock dropped from 2745 to 2280 MHz at up to 87 °C. That pattern is thermal throttling: better GPU cooling or airflow should keep the clock up."
+      },
+      {
+        "kind": "GpuBound",
+        "severity": "Info",
+        "message": "The GPU was 98% busy (median), so the graphics card set the frame rate. Lower resolution, upscaling (DLSS or FSR) or lower graphics settings will raise FPS; a faster CPU will not."
+      }
+    ],
+    "feedback": "**Your GPU overheated and slowed itself down.** FPS was 21% below your usual 110 because the RTX 4070 reached 87 °C and dropped its clock from 2745 to 2280 MHz.\n\n- Clean dust from the GPU fans and check that the case fans are spinning.\n- If it keeps happening, set a slightly more aggressive fan curve in your GPU software.",
+    "rows": [
+      {
+        "t": 1795262000,
+        "fps": 108,
+        "m": {
+          "CPU °C": 70.1,
+          "CPU %": 32,
+          "CPU W": 66,
+          "GPU °C": 74,
+          "GPU %": 98,
+          "GPU MHz": 2745
+        }
+      },
+      {
+        "t": 1795262001,
+        "fps": 110,
+        "m": {
+          "CPU °C": 70.4,
+          "CPU %": 34,
+          "CPU W": 67,
+          "GPU °C": 75,
+          "GPU %": 99,
+          "GPU MHz": 2745
+        }
+      },
+      {
+        "t": 1795262002,
+        "fps": 107,
+        "m": {
+          "CPU °C": 70.9,
+          "CPU %": 33,
+          "CPU W": 68,
+          "GPU °C": 79,
+          "GPU %": 99,
+          "GPU MHz": 2700
+        }
+      },
+      {
+        "t": 1795262003,
+        "fps": 95,
+        "m": {
+          "CPU °C": 71.2,
+          "CPU %": 31,
+          "CPU W": 66,
+          "GPU °C": 84,
+          "GPU %": 99,
+          "GPU MHz": 2450
+        }
+      },
+      {
+        "t": 1795262004,
+        "fps": 86,
+        "m": {
+          "CPU °C": 71.0,
+          "CPU %": 30,
+          "CPU W": 65,
+          "GPU °C": 87,
+          "GPU %": 99,
+          "GPU MHz": 2280
+        }
+      },
+      {
+        "t": 1795262005,
+        "fps": 41,
+        "m": {
+          "CPU °C": 70.7,
+          "CPU %": 52,
+          "CPU W": 80,
+          "GPU °C": 87,
+          "GPU %": 71,
+          "GPU MHz": 2280
+        }
+      },
+      {
+        "t": 1795262006,
+        "fps": 85,
+        "m": {
+          "CPU °C": 70.5,
+          "CPU %": 31,
+          "CPU W": 66,
+          "GPU °C": 87,
+          "GPU %": 99,
+          "GPU MHz": 2290
+        }
+      }
+    ]
+  },
+  "/api/specs": {
+    "computerManufacturer": "ASUS",
+    "computerModel": "ROG Strix G16",
+    "osName": "Microsoft Windows 11 Home",
+    "osVersion": "10.0.26100",
+    "osBuild": "26100",
+    "cpuName": "AMD Ryzen 7 7800X3D 8-Core Processor",
+    "cpuCores": 8,
+    "cpuLogicalProcessors": 16,
+    "cpuMaxClockMhz": 4201,
+    "motherboardManufacturer": "ASUSTeK COMPUTER INC.",
+    "motherboardProduct": "ROG STRIX B650-A GAMING WIFI",
+    "biosVersion": "3024",
+    "ramTotalGb": 32,
+    "gpus": [{ "name": "NVIDIA GeForce RTX 4070", "driverVersion": "32.0.15.6614", "vramGb": 4.0 }]
+  },
+  "/api/alerts?after=0": [
+    {
+      "id": 31,
+      "atUtc": "2026-11-21T13:55:00+00:00",
+      "kind": "Health:disk-health",
+      "severity": "Critical",
+      "message": "Drive health: Windows reports ST2000DM008 as unhealthy. Back up your files now and plan to replace the drive.",
+      "sessionId": null
+    },
+    {
+      "id": 30,
+      "atUtc": "2026-11-21T12:42:30+00:00",
+      "kind": "Feedback",
+      "severity": "Info",
+      "message": "Cyberpunk2077.exe: the assistant reviewed this session. Open it on the Sessions tab.",
+      "sessionId": 14
+    },
+    {
+      "id": 29,
+      "atUtc": "2026-11-21T12:40:40+00:00",
+      "kind": "GpuThrottling",
+      "severity": "Warning",
+      "message": "Cyberpunk2077.exe: While the GPU was fully loaded, its clock dropped from 2745 to 2280 MHz at up to 87 °C. That pattern is thermal throttling: better GPU cooling or airflow should keep the clock up.",
+      "sessionId": 14
+    }
+  ],
+  "/api/chat/status": { "configured": true },
+  "POST /api/chat (event stream)": [
+    "data: {\"text\":\"Yes, one thing needs attention now: \"}",
+    "data: {\"text\":\"**your 2 TB hard drive (ST2000DM008) is failing.** Windows marks it unhealthy with a predictive failure.\\n\\n\"}",
+    "data: {\"text\":\"- Back up anything on it today.\\n- Plan to replace it.\"}",
+    "data: {\"done\":true}"
+  ]
+}

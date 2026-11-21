@@ -1,0 +1,14 @@
+{
+  "/api/cooling": {
+    "atUtc": "2026-11-21T13:59:59+00:00",
+    "gpus": [{"name":"NVIDIA GeForce RTX 4070","fanCount":2,"fans":[{"name":"GPU Fan 1","rpm":1480,"percent":52},{"name":"GPU Fan 2","rpm":1495,"percent":52}],"zeroRpm":false}],
+    "systemFans": [{"name":"CPU Fan","rpm":1100,"percent":45},{"name":"Fan #2","rpm":860,"percent":35}],
+    "pumps": [{"name":"AIO Pump","rpm":2700,"percent":100}],
+    "coolingType":"Liquid",
+    "coolingTypeReason":"A pump is running at 2700 RPM, so this PC uses liquid cooling (an AIO or a custom loop)."
+  },
+  "laptop": {
+    "atUtc":"2026-11-21T13:59:59+00:00","gpus":[],"systemFans":[],"pumps":[],"coolingType":"Unknown",
+    "coolingTypeReason":"This PC doesn't report its CPU or case fans. Laptops and some motherboards hide them, or the PawnIO driver is missing."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "/api/memory": {
+    "atUtc": "2026-11-21T13:55:00+00:00",
+    "totalGb": 32,
+    "totalSlots": 4,
+    "usedSlots": 2,
+    "modules": [
+      { "slot": "DIMM_A2", "bank": "BANK 1", "channel": "A", "capacityGb": 16, "type": "DDR5", "ratedSpeedMts": 6000, "configuredSpeedMts": 4800, "manufacturer": "Corsair", "partNumber": "CMK32GX5M2B6000C36" },
+      { "slot": "DIMM_B2", "bank": "BANK 3", "channel": "B", "capacityGb": 16, "type": "DDR5", "ratedSpeedMts": 6000, "configuredSpeedMts": 4800, "manufacturer": "Corsair", "partNumber": "CMK32GX5M2B6000C36" }
+    ],
+    "check": {
+      "id": "memory-config", "title": "Memory setup", "severity": "Info",
+      "summary": "Memory runs at 4800 MT/s, below the 6000 MT/s the stick reports. If you didn't lower it on purpose, enable the XMP or EXPO profile in the BIOS.",
+      "evidence": [
+        "DIMM_A2: 16 GB DDR5, 4800 MT/s (reports 6000), Corsair CMK32GX5M2B6000C36",
+        "DIMM_B2: 16 GB DDR5, 4800 MT/s (reports 6000), Corsair CMK32GX5M2B6000C36",
+        "2 of 4 slots are empty"
+      ]
+    }
+  }
+}
